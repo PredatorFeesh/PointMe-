@@ -1,9 +1,18 @@
-import tkinter as tk
-import src.Application
+from flask import *
 
-if __name__ == '__main__':
-    root = tk.Tk()
-    #root.geometry("1600x900")
-    root.title("Operation Event Hub")
-    app = src.Application.App(master=root)
-    app.mainloop()
+app = Flask(__name__)
+
+@app.route("/")
+def homepage():
+    return render_template("homepage.html")
+
+@app.route("/login")
+def loginpage():
+    return render_template("loginpage.html")
+
+@app.route("/register")
+def registerpage():
+    return "register page"
+
+if __name__ == "__main__":
+    app.run(debug=True)
