@@ -1,9 +1,9 @@
 import tkinter as tk
-import src.Application
+import Application
 
 if __name__ == '__main__':
     root = tk.Tk()
-    #root.geometry("1600x900")
+    root.geometry("1600x900")
     root.title("Operation Event Hub")
-    app = src.Application.App(master=root)
+    app = Application.App(master=root)
     app.mainloop()

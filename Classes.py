@@ -4,7 +4,6 @@ class User():
         self.username = username
         self.password = password
         self.email = email
-        self.dob = dob
         self.phonenumber = phonenumber
 
 class Post():
