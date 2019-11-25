@@ -1,22 +1,43 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.75s;
+            border-radius: 10px;
+            margin-left: 15%;
+            margin-right: 15%;
+            margin-top: 10%;
+            margin-bottom: 10%;
+        }
+        body {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
 {%extends 'base.html'%}
 {% block content %}
-<h1>{{title}}</h1>
-<form action="" method="POST">
-    {{ form.hidden_tag() }}
-    <p>
-        Username: {{form.username}} <br>
-        {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-        
-            Password: {{form.password}} <br>
-        {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-
-        {{form.remember_me}}
-    </p>
-    
-    <p> {{ form.submit() }} </p>
-</form>
+<div class="card">
+    <h1 class="card-header">{{title}}</h1>
+    <form action="" method="POST" class="card-body">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label>Username</label>
+            {{form.username}} <br>
+            {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            {{form.password}} <br>
+            {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <p>{{form.remember_me}} Remember Me?</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
 {% endblock content %}
