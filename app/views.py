@@ -32,6 +32,22 @@ def index():
     return "Works!"
 
 
+@app.route('/homepage')
+def homepage():
+    return render_template('homepage.html')
+
+@app.route('/attractions')
+def attractions():
+    return render_template('attractions.html')
+
+@app.route('/events')
+def events():
+    return render_template('events.html')
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
