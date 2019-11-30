@@ -27,9 +27,7 @@ def logout():
 
 @app.route('/')
 def index():
-    if current_user.is_authenticated:
-        return "Welcome {}".format(current_user.username)
-    return "Works!"
+    return redirect(url_for('homepage'))
 
 
 @app.route('/homepage')
