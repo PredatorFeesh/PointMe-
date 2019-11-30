@@ -1,8 +1,33 @@
 {%extends 'base.html'%}
 {% block content %}
     <div class="container" style="margin-top: 3%">
-        <p>test</p>
+        <div class="card shadow-lg mb-3">
+            <img src="" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">Event title</h5>
+                <p class="card-text">Event hoster</p>
+                <p class="card-text">Event description</p>
+                <a href="">
+                    <button class="btn btn-primary btn-block">More Information</button>
+                </a>
+            </div>
+        </div>
     </div>
+
+    <div class="container" style="margin-top: 3%">
+        <div class="card shadow-lg mb-3">
+            <img src="" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">Event title2</h5>
+                <p class="card-text">Event hoster2</p>
+                <p class="card-text">Event description2</p>
+                <a href="">
+                    <button class="btn btn-primary btn-block">More Information</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.getElementById("events_nav").className += " active";
     </script>
