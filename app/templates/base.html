@@ -16,6 +16,10 @@
                                     </li>
                                     <li class="nav-item" id="register_nav">
                                             <a class="nav-link" href="{{ url_for('register') }}" aria-disabled="true">Register</a>
+                                    </li>
+                                {% else %}
+                                <li class="nav-item" id="logout_nav">
+                                        <a class="nav-link" href="{{ url_for('logout') }}" aria-disabled="true">Logout</a>
                                 </li>
                                 {% endif %}
                             {% else %}

@@ -32,6 +32,8 @@ def index():
 
 @app.route('/homepage')
 def homepage():
+    if current_user.is_authenticated:
+        return redirect(url_for('profile'))
     return render_template('homepage.html')
 
 @app.route('/attractions')
