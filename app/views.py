@@ -38,13 +38,29 @@ def homepage():
 def attractions():
     return render_template('attractions.html')
 
+@app.route('/view_attraction')
+def view_attraction():
+    return render_template('view_attraction.html')
+
 @app.route('/events')
 def events():
     return render_template('events.html')
 
+@app.route('/create_event')
+def create_event():
+    return render_template('create_event.html')
+
+@app.route('/view_event')
+def view_event():
+    return render_template('view_event.html')
+
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
+
+@app.route('/my_profile')
+def my_profile():
+    return render_template('my_profile.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
