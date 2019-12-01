@@ -40,11 +40,6 @@ def homepage():
 def view_attraction():
     return render_template('view_attraction.html')
 
-@app.route('/events')
-def events():
-    rec_query = Event.query.paginate(1, 5, False) 
-    return render_template('events.html', events=rec_query.items)
-
 @app.route('/view_event')
 def view_event():
     return render_template('view_event.html')
@@ -59,10 +54,24 @@ def profile():
 def my_profile():
     return render_template('my_profile.html')
 
-@app.route('/attractions')
+
+@app.route('/events')
+def events():
+    return redirect("events/1")
+@app.route('/events/<int:page>')
+def events_page(page):
+    rec_query = Event.query.paginate(page, 5, False) 
+    return render_template('events.html', events=rec_query.items, page_num=page)
+
+@app.route('/attractions/')
 def attractions():
-    rec_query = Attraction.query.paginate(1, 5, False) 
-    return render_template('attractions.html', attractions = rec_query.items)
+    return redirect(("1"))
+
+@app.route('/attractions/<int:page>')
+def attractions_page(page):
+    if page < 1: page = 1
+    rec_query = Attraction.query.paginate(page, 5, False) 
+    return render_template('attractions.html', attractions = rec_query.items, page_num=page)
 
 @app.route('/create_event', methods=["GET","POST"])
 @login_required
