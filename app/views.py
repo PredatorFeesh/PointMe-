@@ -60,6 +60,7 @@ def events():
     return redirect("events/1")
 @app.route('/events/<int:page>')
 def events_page(page):
+    if page < 1: return redirect("1")
     rec_query = Event.query.paginate(page, 5, False) 
     return render_template('events.html', events=rec_query.items, page_num=page)
 
@@ -69,7 +70,7 @@ def attractions():
 
 @app.route('/attractions/<int:page>')
 def attractions_page(page):
-    if page < 1: page = 1
+    if page < 1: return redirect("1")
     rec_query = Attraction.query.paginate(page, 5, False) 
     return render_template('attractions.html', attractions = rec_query.items, page_num=page)
 
