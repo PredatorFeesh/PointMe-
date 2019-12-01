@@ -8,14 +8,16 @@ class User(db.Model, flask_login.UserMixin ):
     its attributes.
     
     """
-    __tablename__ = 'user'
+    __tablename__ = 'users'
 
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    id = db.Column('user_id',db.Integer, autoincrement=True, primary_key=True)
     username = db.Column(db.String(100), index=True, unique=True)
     email = db.Column(db.String(100), index=True, unique=True)
     password_hash = db.Column(db.String(255))
 
     authenticated = db.Column(db.Boolean, default=False)
+
+    events = db.relationship("Event", backref="event", lazy="dynamic")
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -39,3 +41,29 @@ class User(db.Model, flask_login.UserMixin ):
         """False, as anonymous users aren't supported."""
         return False
 
+
+
+
+class Event(db.Model):
+    id = db.Column('event_id', db.Integer, primary_key = True, autoincrement=True)
+    title = db.Column(db.String(100))
+    description = db.Column(db.String(2000))
+    location = db.Column(db.String(225))
+    start_date = db.Column(db.String(225))
+    end_date = db.Column(db.String(225))
+
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    user = db.relationship('User')
+
+class Attraction(db.Model):
+    id = db.Column('attraction_id', db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(200))
+    description = db.Column(db.String(500))
+    location= db.Column(db.String(100))
+    link = db.Column(db.String(200))
+    date_posted = db.Column(db.String(100))
+    image_link = db.Column(db.String(200))
+
+class Post(db.Model):
+    id = db.Column('post_id', db.Integer, primary_key=True, autoincrement=True)

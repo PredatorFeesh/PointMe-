@@ -14,18 +14,19 @@
                 </li>
             </ul>
         </nav>
-
+        {% for event in events %}
         <div class="card shadow-lg mb-3">
             <img src="" class="card-img-top">
             <div class="card-body">
-                <h5 class="card-title">Event title</h5>
-                <p class="card-text">Event hoster</p>
-                <p class="card-text">Event description</p>
+                <h5 class="card-title">{{event.title}}</h5>
+                <p class="card-text">{{event.user.username}}</p>
+                <p class="card-text">{{event.description}}</p>
                 <a href="">
                     <button class="btn btn-primary btn-block">More Information</button>
                 </a>
             </div>
         </div>
+        {% endfor %}
 
         <div class="card shadow-lg mb-3">
             <img src="" class="card-img-top">

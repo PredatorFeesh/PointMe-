@@ -27,3 +27,12 @@ class RegisterForm(Form):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+class CreateEventForm(Form):
+    event_title = StringField('Event Title')
+    description = StringField('Description')
+    location = StringField('Location')
+    start_date = StringField('Start Date')
+    end_date = StringField('End Date')
+
+    submit = SubmitField('Submit')

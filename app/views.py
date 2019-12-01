@@ -1,10 +1,10 @@
 from app import app
 from flask import render_template, request, redirect, url_for, flash
-from app.forms import LoginForm, RegisterForm
+from app.forms import *
 import flask_login as fl
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 
-from app.models import User
+from app.models import *
 from app.models import db
 
 login_manager = fl.LoginManager()
@@ -17,7 +17,9 @@ login_manager.login_view = "login"
 
 login_manager.init_app(app)
 
+
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
@@ -34,33 +36,51 @@ def homepage():
         return redirect(url_for('profile'))
     return render_template('homepage.html')
 
-@app.route('/attractions')
-def attractions():
-    return render_template('attractions.html')
-
 @app.route('/view_attraction')
 def view_attraction():
     return render_template('view_attraction.html')
 
 @app.route('/events')
 def events():
-    return render_template('events.html')
-
-@app.route('/create_event')
-def create_event():
-    return render_template('create_event.html')
+    rec_query = Event.query.paginate(1, 5, False) 
+    return render_template('events.html', events=rec_query.items)
 
 @app.route('/view_event')
 def view_event():
     return render_template('view_event.html')
 
 @app.route('/profile')
+@login_required
 def profile():
     return render_template('profile.html')
 
 @app.route('/my_profile')
+@login_required
 def my_profile():
     return render_template('my_profile.html')
+
+@app.route('/attractions')
+def attractions():
+    rec_query = Attraction.query.paginate(1, 5, False) 
+    return render_template('attractions.html', attractions = rec_query.items)
+
+@app.route('/create_event', methods=["GET","POST"])
+@login_required
+def create_event():
+    form = CreateEventForm()
+    if form.validate_on_submit():
+        event = Event(title=form.event_title.data, 
+            description=form.description.data, 
+            location=form.location.data, 
+            start_date=form.start_date.data, 
+            end_date = form.end_date.data)
+        user = User.query.filter_by(id=current_user.get_id()).first()
+        user.events.append(event)
+        db.session.add(current_user)
+        db.session.commit()
+        return redirect(url_for('index'))
+
+    return render_template('create_event.html', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
