@@ -33,7 +33,7 @@ def index():
 @app.route('/homepage')
 def homepage():
     if current_user.is_authenticated:
-        return redirect(url_for('profile'))
+        return redirect(url_for('my_profile'))
     return render_template('homepage.html')
 
 @app.route('/view_attraction')
@@ -47,17 +47,25 @@ def view_event():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html')
+    #user = User.query.filter_by(id= {{id of clicked user}} ).first()
+    #rec_query = Event.query.filter_by(user_id=current_user.get_id())
+    user = "user_beta"
+    rec_query = Event.query.paginate(1,5,False)
+    return render_template('profile.html',events=rec_query.items, user=user)
 
 @app.route('/my_profile')
 @login_required
 def my_profile():
-    return render_template('my_profile.html')
+    user = User.query.filter_by(id=current_user.get_id()).first()
+    rec_query = Event.query.paginate(1,5,False)
+    #rec_query = Event.query.filter_by(user_id=current_user.get_id())
+    return render_template('my_profile.html', events=rec_query.items, user=user)
 
 
 @app.route('/events')
 def events():
     return redirect("events/1")
+
 @app.route('/events/<int:page>')
 def events_page(page):
     if page < 1: return redirect("1")

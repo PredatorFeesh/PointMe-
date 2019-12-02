@@ -1,29 +1,33 @@
 {%extends 'base.html'%}
 {% block content %}
-    <div class="container" style="margin-top: 3%;">
-        <nav aria-label="Page navigation" style="margin-bottom: 5%; margin-top: -1%;">
-            <ul class="pagination justify-content-center">
-                <a class="page-link" href="{{page_num-1}}" tabindex="-1">Previous</a>
-                <a class="page-link" href="{{page_num+1}}">Next</a>
+<div class="container" style="margin-top: 3%;">
+        <nav aria-label="Page navigation" style="margin-bottom: 3%; margin-top: -1%;">
+                <ul class="pagination justify-content-center">
+                    <a class="page-link" href="{{page_num-1}}" tabindex="-1">Previous</a>
+                    <a class="page-link" href="{{page_num+1}}">Next</a>
                 </li>
             </ul>
         </nav>
+
+        <div style="margin-bottom: 2%;">
+            <a href="{{url_for('create_event')}}">
+                <button class="btn btn-block btn-primary">Create Event</button>
+            </a>
+        </div>
+
         {% for event in events %}
         <div class="card shadow-lg mb-3">
-            <img src="" class="card-img-top">
+            <h2 class="card-header">{{event.title}}</h2>
             <div class="card-body">
-                <h5 class="card-title">{{event.title}}</h5>
-                <p class="card-text">{{event.user.username}}</p>
+                <p class="card-text font-weight-bold text-capitalize">
+                    Hosted by <a href="/profile">{{event.user.username}}</a>
+                </p>
+                <p class="card-text">Location: {{event.location}}</p>
+                <p class="card-text">{{event.start_date}} - {{event.start_date}}</p>
                 <p class="card-text">{{event.description}}</p>
-                <a href="">
-                    <button class="btn btn-primary btn-block">More Information</button>
-                </a>
             </div>
         </div>
         {% endfor %}
-    <div>
-        <a href="{{url_for('create_event')}}"> Create Event</a>
-    </div>
 
     <script>
         document.getElementById("events_nav").className += " active";

@@ -1,3 +1,28 @@
 {%extends 'base.html'%}
 {% block content %}
+    <div class="container" style="margin-top: 3%">
+        <div class="card shadow-lg bg-dark" style="margin-bottom: 3.5%; padding-top: 2%; padding-bottom: 2%;">
+            <div class="row">
+                <div class="col-9 text-center">
+                    <h1 class="text-white">{{user}}'s Events</h1>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-primary" style="margin-top: 2.5%;">
+                        Follow {{user}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% for event in events %}
+            <div class="card shadow-lg mb-3">
+                <h2 class="card-header">{{event.title}}</h2>
+                <div class="card-body">
+                    <p class="card-text font-weight-bold text-capitalize">Hosted by {{event.user.username}}</p>
+                    <p class="card-text">Location: {{event.location}}</p>
+                    <p class="card-text">{{event.start_date}} - {{event.start_date}}</p>
+                    <p class="card-text">{{event.description}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock content %}
