@@ -4,16 +4,26 @@
         <div class="card shadow-lg bg-dark" style="margin-bottom: 3.5%; padding-top: 2%; padding-bottom: 2%;">
             <div class="row">
                 <div class="col-9 text-center">
-                    <h1 class="text-white">{{user}}'s Events</h1>
+                    <h1 class="text-white">{{viewing_user.username}}'s Events</h1>
                 </div>
                 <div class="col-3">
-                    <button class="btn btn-primary" style="margin-top: 2.5%;">
-                        Follow {{user}}
-                    </button>
+                    {% if not user.is_following(viewing_user) %}
+                    <a href="/follow/{{viewing_user.id}}">
+                        <button class="btn btn-primary" style="margin-top: 2.5%;">
+                            Follow {{viewing_user.username}}
+                        </button>
+                    </a>
+                    {% else %}
+                    <a href="/unfollow/{{viewing_user.id}}">
+                        <button class="btn btn-primary" style="margin-top: 2.5%;">
+                            Unfollow {{viewing_user.username}}
+                        </button>
+                    </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        {% for event in events %}
+        {% for event in viewing_user.get_events() %}
             <div class="card shadow-lg mb-3">
                 <h2 class="card-header">{{event.title}}</h2>
                 <div class="card-body">

@@ -47,8 +47,14 @@ class User(db.Model, flask_login.UserMixin ):
     def is_following(self, user):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
-        
-    def followed_events(self): 
+    
+    def followed_events(self):
+        return Event.query.join(
+            followers, (followers.c.followed_id == Event.user_id)).filter(
+                followers.c.follower_id == self.id).order_by(
+                    Event.timestamp.desc())
+
+    def get_events(self): 
         # EVENTS POSTED BY FOLLOWERS
         followed = Event.query.join(
             followers, (followers.c.followed_id == Event.user_id)).filter(
@@ -95,11 +101,11 @@ class Event(db.Model):
 
 class Attraction(db.Model):
     id = db.Column('attraction_id', db.Integer, primary_key=True, autoincrement=True)
+    date_posted = db.Column(db.String(100), default=datetime.datetime.utcnow)
     name = db.Column(db.String(200))
     description = db.Column(db.String(500))
     location= db.Column(db.String(100))
     link = db.Column(db.String(200))
-    date_posted = db.Column(db.String(100))
     image_link = db.Column(db.String(200))
 
 class Post(db.Model):
