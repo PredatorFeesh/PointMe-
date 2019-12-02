@@ -53,16 +53,44 @@ def profile():
     rec_query = Event.query.paginate(1,5,False)
     return render_template('profile.html',events=rec_query.items, user=user)
 
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        print("User not found!")
+        return redirect(url_for('index'))
+    if user == current_user:
+        print("Can't yourself!!")
+        return redirect(url_for('index', username=username))
+    current_user.follow(user)
+    db.session.commit()
+    print("Success!")
+    return redirect(url_for('index', username=username))
+
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        print("User not found!")
+        return redirect(url_for('index'))
+    if user == current_user:
+        print("Following ourself!")
+        return redirect(url_for('index', username=username))
+    current_user.unfollow(user)
+    db.session.commit()
+    return redirect(url_for('index', username=username))
+
 @app.route('/my_profile')
 @login_required
 def my_profile():
     user = User.query.filter_by(id=current_user.get_id()).first()
     # rec_query = Event.query.paginate(1,5,False)
     # events_query = Event.query.filter_by(user_id=user.id).paginate(1,5,False)
-
     followed_events = user.followed_events() 
-
-    return render_template('my_profile.html', events=followed_events)
+    
+    return render_template('my_profile.html', events=followed_events, user=user)
 
 
 @app.route('/events')

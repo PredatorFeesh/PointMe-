@@ -17,14 +17,19 @@
                 <div class="card shadow-lg" style="margin-top: 10%;">
                     <h5 class="card-header">Following</h5>
                     <div class="card-body">
-                        <p class="card-text">for loop the following</p>
+                        
+                        {% for fol in user.get_following() %}
+                            <p class="card-text">{{ fol.username }}</p>
+                        {% endfor %}
                     </div>
                 </div>
 
                 <div class="card shadow-lg" style="margin-top: 10%;">
                     <h5 class="card-header">Followers</h5>
                     <div class="card-body">
-                        <p class="card-text">for loop the followers</p>
+                        {% for follower in user.followers %}
+                            <p class="card-text">{{follower.username}}</p>
+                        {% endfor %}
                     </div>
                 </div>
 

@@ -33,6 +33,9 @@ class User(db.Model, flask_login.UserMixin ):
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
+    def get_following(self):
+        return self.followed.filter(followers.c.follower_id == self.id)
+
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
