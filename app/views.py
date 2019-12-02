@@ -57,9 +57,12 @@ def profile():
 @login_required
 def my_profile():
     user = User.query.filter_by(id=current_user.get_id()).first()
-    rec_query = Event.query.paginate(1,5,False)
-    #rec_query = Event.query.filter_by(user_id=current_user.get_id())
-    return render_template('my_profile.html', events=rec_query.items, user=user)
+    # rec_query = Event.query.paginate(1,5,False)
+    # events_query = Event.query.filter_by(user_id=user.id).paginate(1,5,False)
+
+    followed_events = user.followed_events() 
+
+    return render_template('my_profile.html', events=followed_events)
 
 
 @app.route('/events')
