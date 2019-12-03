@@ -17,9 +17,10 @@
                 <div class="card shadow-lg" style="margin-top: 10%;">
                     <h5 class="card-header">Following</h5>
                     <div class="card-body">
-                        
                         {% for fol in user.get_following() %}
-                            <p class="card-text">{{ fol.username }}</p>
+                            <a href="/profile/{{fol.get_id()}}">
+                                <p class="card-text">{{ fol.username }}</p>
+                            </a>
                         {% endfor %}
                     </div>
                 </div>
@@ -28,7 +29,9 @@
                     <h5 class="card-header">Followers</h5>
                     <div class="card-body">
                         {% for follower in user.followers %}
-                            <p class="card-text">{{follower.username}}</p>
+                            <a href="/profile/{{follower.get_id()}}">
+                                <p class="card-text">{{follower.username}}</p>
+                            </a>
                         {% endfor %}
                     </div>
                 </div>
