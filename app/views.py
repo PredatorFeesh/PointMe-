@@ -104,6 +104,9 @@ def events():
 def events_page(page):
     if page < 1: return redirect("1")
     rec_query = Event.query.paginate(page, 5, False) 
+    print(rec_query.items)
+    if len(rec_query.items) == 0: 
+        return redirect(str(page-1))
     return render_template('events.html', events=rec_query.items, page_num=page)
 
 @app.route('/attractions/')
@@ -114,6 +117,8 @@ def attractions():
 def attractions_page(page):
     if page < 1: return redirect("1")
     rec_query = Attraction.query.paginate(page, 5, False) 
+    if len(rec_query.items) == 0: 
+        return redirect(str(page-1))
     return render_template('attractions.html', attractions = rec_query.items, page_num=page)
 
 @app.route('/create_event', methods=["GET","POST"])
