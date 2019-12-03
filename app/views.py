@@ -52,6 +52,8 @@ def profile(id):
     if user is None:
         print("Doesn't exist!")
         return redirect(url_for('index'))
+    if user.id == viewing_user.id:
+        return redirect(url_for('my_profile'))
     return render_template('profile.html', user=user, viewing_user=viewing_user)
 
 @app.route('/follow/<int:id>')
