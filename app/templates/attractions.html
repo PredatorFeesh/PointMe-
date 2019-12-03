@@ -11,10 +11,11 @@
         </nav>
 
         {% for att in attractions %}
-            <div class="card shadow-lg mb-3">
-                <img src="{{att.image_link}}" class="card-img-top">
+            <div class="card shadow-lg mb-3" style="margin-bottom: 5%;">
+                <img src="{{att.image_link}}" class="card-img-top img-fluid">
                 <div class="card-body">
-                    <h5 class="card-title">{{att.title}}</h5>
+                    <h2 class="card-title font-weight-bold">{{att.name}}</h2>
+                    <p class="card-text font-weight-bold">{{att.location}}</p>
                     <p class="card-text">{{att.description}}</p>
                     <a href="{{att.link}}">
                         <button class="btn btn-primary btn-block">More Information</button>

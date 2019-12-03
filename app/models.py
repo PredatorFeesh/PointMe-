@@ -88,9 +88,9 @@ class User(db.Model, flask_login.UserMixin ):
 
 class Event(db.Model):
     id = db.Column('event_id', db.Integer, primary_key = True, autoincrement=True)
-    title = db.Column(db.String(100))
-    description = db.Column(db.String(2000))
-    location = db.Column(db.String(225))
+    title = db.Column(db.String(256))
+    description = db.Column(db.String(4096))
+    location = db.Column(db.String(512))
     start_date = db.Column(db.String(225))
     end_date = db.Column(db.String(225))
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
@@ -102,11 +102,11 @@ class Event(db.Model):
 class Attraction(db.Model):
     id = db.Column('attraction_id', db.Integer, primary_key=True, autoincrement=True)
     date_posted = db.Column(db.String(100), default=datetime.datetime.utcnow)
-    name = db.Column(db.String(200))
-    description = db.Column(db.String(500))
-    location= db.Column(db.String(100))
-    link = db.Column(db.String(200))
-    image_link = db.Column(db.String(200))
+    name = db.Column(db.String(256))
+    description = db.Column(db.String(4096))
+    location= db.Column(db.String(512))
+    link = db.Column(db.String(512))
+    image_link = db.Column(db.String(512))
 
 class Post(db.Model):
     id = db.Column('post_id', db.Integer, primary_key=True, autoincrement=True)
