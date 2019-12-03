@@ -106,6 +106,8 @@ def events_page(page):
     rec_query = Event.query.paginate(page, 5, False) 
     print(rec_query.items)
     if len(rec_query.items) == 0: 
+        if page == 1:
+            return redirect(url_for("my_profile"))
         return redirect(str(page-1))
     return render_template('events.html', events=rec_query.items, page_num=page)
 
@@ -118,6 +120,8 @@ def attractions_page(page):
     if page < 1: return redirect("1")
     rec_query = Attraction.query.paginate(page, 5, False) 
     if len(rec_query.items) == 0: 
+        if page == 1:
+            return redirect(url_for("profile"))
         return redirect(str(page-1))
     return render_template('attractions.html', attractions = rec_query.items, page_num=page)
 
