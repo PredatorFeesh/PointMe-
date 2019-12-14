@@ -14,17 +14,16 @@ We are using Python3 Flask in order to actually render our website. To make it c
 
 ## Features
 
-TBD
+- Create local events and post them for other users to see
+- View events posted by other users
+- View a curated list of attractions that are in New York City
+- Follow other users and see events they created and users they follow
 
 ## Proposed Schemas
 
-Note, this is rough and subject to change.
-
 - Users(userid,  name, passwordhash, emailaddress, dateofbirth, phonenumber)
-- Posts(postid, eventid, title, date)
 - Events(eventid, datestart, dateend, name, description, location)
 - Attractions(attractionid, location, name, description)
-- EventFollows(eventid, userid, datejoined)
 - UserFollows(userid, useridtarget, date)
 
 ## How to run
@@ -34,10 +33,6 @@ Note, this is rough and subject to change.
 First, install all the pip files. To do this, type pip3 install -r requirements.txt. Next, you need to set up the database.
 
 If you get a database error, make sure mysqldb actually installed for Python3 (and make sure your sql server is active). Install with `pip3 install mysqlclient` <br />
-
-### Enviroment Variables
-
-TODO. Not needed at the moment.
 
 ### Database
 
